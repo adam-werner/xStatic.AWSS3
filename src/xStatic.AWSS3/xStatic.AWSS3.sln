@@ -5,6 +5,11 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XStatic.AWSS3", "XStatic.AWSS3\XStatic.AWSS3.csproj", "{D2BA7081-1EFA-4E5C-8CFC-E302A975C0F1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Brand", "Brand", "{B2F5C3E7-3F0C-44CE-84F6-58A648AC26F3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\brand\Logo.png = ..\..\brand\Logo.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
