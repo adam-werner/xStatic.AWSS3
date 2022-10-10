@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.9.55" />
+    <PackageReference Include="xStatic.Core" Version="3.0.0-beta" />
+  </ItemGroup>
+
 </Project>
