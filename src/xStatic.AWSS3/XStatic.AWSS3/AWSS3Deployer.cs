@@ -22,7 +22,7 @@ namespace XStatic.AWSS3
             _awsAccessKey = parameters["AccessKey"];
             _awsSecretKey = parameters["SecretKey"];
             _region = parameters["Region"];
-            _emptyBucket = !string.IsNullOrEmpty(parameters["EmptyBucket"]);
+            _emptyBucket = emptyBucketValueCheck(parameters["EmptyBucket"]);
         }
 
         public virtual async Task<XStaticResult> DeployWholeSite(string folderPath)
@@ -50,6 +50,16 @@ namespace XStatic.AWSS3
 
             try
             {
+                // Establish the min size of the multipart upload
+                TransferUtilityConfig transferUtilityConfig = new TransferUtilityConfig()
+                {
+                    MinSizeBeforePartUpload = 25
+                };
+
+                // Instantiate the transfer utility object
+                TransferUtility transferUtility = new TransferUtility(client, transferUtilityConfig);
+
+                // Create the upload directory request object
                 TransferUtilityUploadDirectoryRequest request = new TransferUtilityUploadDirectoryRequest()
                 {
                     BucketName = _bucketName,
@@ -59,17 +69,16 @@ namespace XStatic.AWSS3
                     SearchPattern = "*.*"
                 };
 
-                TransferUtility transferUtility = new TransferUtility(client);
-
+                // Upload the files
                 transferUtility.UploadDirectoryAsync(request).Wait();
             }
             catch (AmazonS3Exception s3Ex)
             {
-                return XStaticResult.Error("Error deploying the site using AWS S3 deploy.", s3Ex);
+                return XStaticResult.Error("S3 Exception :: Error deploying the site using AWS S3 deploy.", s3Ex);
             }
             catch (Exception e)
             {
-                return XStaticResult.Error("Error deploying the site using AWS S3 deploy.", e);
+                return XStaticResult.Error("Exception :: Error deploying the site using AWS S3 deploy.", e);
             }
 
             return XStaticResult.Success("Site deployed using AWS S3 deploy.");
@@ -92,7 +101,7 @@ namespace XStatic.AWSS3
 
 
         /// <summary>
-        /// Delete all of the objects stored in an existing Amazon S3 bucket.
+        /// Delete all of the objects stored in an existing Amazon S3 bucket using the bulk delete method
         /// </summary>
         /// <param name="client">An initialized Amazon S3 client object.</param>
         /// <param name="bucketName">The name of the bucket from which the
@@ -109,26 +118,48 @@ namespace XStatic.AWSS3
 
             try
             {
-                var response = await s3Client.ListObjectsV2Async(request);
+                ListObjectsV2Response response = await s3Client.ListObjectsV2Async(request);
 
-                do
+                if (response != null && response.S3Objects != null && response.S3Objects.Any())
                 {
-                    response.S3Objects
-                        .ForEach(obj => s3Client.DeleteObjectAsync(bucketName, obj.Key).Wait());
+                    var keyVersions = response.S3Objects.Select(x => new KeyVersion { Key = x.Key }).ToList();
 
-                    // If the response is truncated, set the request ContinuationToken
-                    // from the NextContinuationToken property of the response.
-                    request.ContinuationToken = response.NextContinuationToken;
+                    foreach(var keyVersionsSubset in keyVersions.Chunk(1000))
+                    {
+                        var multipleObjectsRequest = new DeleteObjectsRequest()
+                        {
+                            BucketName = bucketName,
+                            Objects = keyVersionsSubset.ToList()
+                        };
+
+                        s3Client.DeleteObjectsAsync(multipleObjectsRequest).Wait();
+                    }
                 }
-                while (response.IsTruncated);
 
                 return true;
             }
             catch (AmazonS3Exception ex)
             {
-                Console.WriteLine($"Error deleting objects: {ex.Message}");
+                // Revisit this to see if logging could be incorporated
                 return false;
             }
+        }
+
+
+        /// <summary>
+        /// Pass in string value entered by administrator
+        /// </summary>
+        /// <param name="emptyBucketParam">Front-end configuration value</param>
+        /// <returns>Boolean</returns>
+        private bool emptyBucketValueCheck(string emptyBucketParam)
+        {
+            if (string.IsNullOrEmpty(emptyBucketParam))
+                return false;
+
+            // Matching values for bucket emptying - y, yes, true, empty
+            string[] emptyBucketValues = new string[] { "y", "yes", "true", "empty" };
+
+            return emptyBucketValues.Contains(emptyBucketParam.ToLower());            
         }
     }
 }
