@@ -8,8 +8,8 @@
     <Product>xStatic.AWSS3</Product>
     <PackageId>xStatic.AWSS3</PackageId>
     <Title>xStatic.AWSS3</Title>
-    <Version>3.0.26-beta</Version>
-    <Description>xStatic plugin for deploying an Umbraco web site to an AWS S3 bucket</Description>
+    <Version>$(VersionPrefix)</Version>
+    <Description>xStatic plugin for deploying an xStatic web site build to an AWS S3 bucket</Description>
     <PackageTags>umbraco umbraco10 umbraco11 xstatic static site generation AWS S3 umbraco-marketplace</PackageTags>
     <Authors>Adam F. Werner</Authors>
     <Copyright>Copyright 2022</Copyright>
