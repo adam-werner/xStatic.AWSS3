@@ -1,0 +1,36 @@
+{
+  "AuthorDetails": {
+    "Name": "Adam Werner",
+    "Description": "A full stack developer with a particular focus on .NET development.  An Umbraco Certified Master.",
+    "Url": "https://castellantech.com/",
+    "ImageUrl": "https://www.castellantech.com/media/dqqlk3x3/adam-werner400x400.jpg"
+  },
+  "Category": "Headless",
+  "Description": "An xStatic plugin for deploying an Umbraco web site to an AWS S3 bucket for static site hosting.",
+  "DocumentationUrl": "https://github.com/adam-werner/xStatic.AWSS3",
+  "LicenseTypes": [ "Free" ],
+  "IssueTrackerUrl": "https://github.com/adam-werner/xStatic.AWSS3/issues",
+  "PackageType": "Package",
+  "RelatedPackages": [
+    {
+      "PackageId": "xStatic",
+      "Description": "Static site builder providing the files to deploy to an S3 bucket."
+    }
+  ],
+  "Screenshots": [
+    {
+      "ImageUrl": "https://castellantech.com/media/02pfupz2/sc-xstaticawss3-deploy-dashboard.jpg",
+      "Caption": "xStatic sites dashboard"
+    },
+    {
+      "ImageUrl": "https://castellantech.com/media/mzggpwrc/sc-xstaticawss3-deploy.jpg",
+      "Caption": "AWS S3 settings"
+    }
+  ],
+  "Tags": [
+    "Static Site Generator",
+    "AWS",
+    "S3"
+  ],
+  "Title": "xStatic Deploy to AWS S3"
+}
