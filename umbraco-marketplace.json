@@ -33,5 +33,15 @@
     "AWS",
     "S3"
   ],
-  "Title": "xStatic Deploy to AWS S3"
+  "Title": "xStatic Deploy to AWS S3",
+  "VersionSpecificPackageIds": [
+    {
+      "UmbracoMajorVersion": 10,
+      "PackageId": "xStatic.AWSS3"
+    },
+    {
+      "UmbracoMajorVersion": 11,
+      "PackageId": "xStatic.AWSS3"
+    }
+  ]
 }
