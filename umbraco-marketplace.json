@@ -6,7 +6,7 @@
     "ImageUrl": "https://www.castellantech.com/media/dqqlk3x3/adam-werner400x400.jpg"
   },
   "Category": "Headless",
-  "Description": "An xStatic plugin for deploying an Umbraco web site to an AWS S3 bucket for static site hosting.",
+  "Description": "An xStatic plugin for deploying a static web site to an AWS S3 bucket for static site hosting.",
   "DocumentationUrl": "https://github.com/adam-werner/xStatic.AWSS3",
   "LicenseTypes": [ "Free" ],
   "IssueTrackerUrl": "https://github.com/adam-werner/xStatic.AWSS3/issues",

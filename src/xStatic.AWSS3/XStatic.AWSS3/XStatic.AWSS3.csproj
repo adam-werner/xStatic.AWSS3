@@ -9,9 +9,9 @@
     <PackageId>xStatic.AWSS3</PackageId>
     <Title>xStatic.AWSS3</Title>
     <Version>$(VersionPrefix)</Version>
-    <Description>xStatic plugin for deploying an xStatic web site build to an AWS S3 bucket</Description>
-    <PackageTags>umbraco umbraco10 umbraco11 xstatic static site generation AWS S3 umbraco-marketplace</PackageTags>
-    <Authors>Adam F. Werner</Authors>
+    <Description>An xStatic plugin for deploying a static web site to an AWS S3 bucket for static site hosting.</Description>
+    <PackageTags>umbraco;umbraco10;umbraco11;xstatic;static site generation;AWS;S3;umbraco-marketplace</PackageTags>
+    <Authors>$(AssemblyName)</Authors>
     <Copyright>Copyright 2022</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/adam-werner/xStatic.AWSS3</PackageProjectUrl>
